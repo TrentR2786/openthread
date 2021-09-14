@@ -788,6 +788,12 @@ void MeshForwarder::HandleMesh(uint8_t *             aFrame,
 
         LogMessage(kMessageReceive, *message, &aMacSource, kErrorNone);
 
+        //keeps the processor busy waiting, working but doing nothing
+        for(int keepup = 0; keepup<1000000; keepup++) {
+            int sum = 1 + 1;
+            sum = sum + sum;
+        }
+
 #if OPENTHREAD_CONFIG_MULTI_RADIO
         // Since the message will be forwarded, we clear the radio
         // type on the message to allow the radio type for tx to be
