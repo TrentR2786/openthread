@@ -789,12 +789,20 @@ void MeshForwarder::HandleMesh(uint8_t *             aFrame,
         LogMessage(kMessageReceive, *message, &aMacSource, kErrorNone);
 
         //manually log the exeact time (start counting milliseconds here)
+        const char* outputExperiment1 = "BRI: before";
+        otPlatLog(OT_LOG_LEVEL_CRIT, OT_LOG_REGION_API, outputExperiment1);
 
         //keeps the processor busy waiting, working but doing nothing
         for(int keepup = 0; keepup<10000000; keepup++) {
-            int sum = 1 + 1;
-            sum = sum + sum;
+            for(int keepup2 = 0; keepup2<1000000; keepup2++){
+                int sum = 1 + 1;
+                sum = sum + sum;
+            }
         }
+
+        const char* outputExperiment = "BRI: after";
+        otPlatLog(OT_LOG_LEVEL_CRIT, OT_LOG_REGION_API, outputExperiment);
+
 
         //stop counting milliseconds here, calculate delay time
 
