@@ -789,8 +789,8 @@ void MeshForwarder::HandleMesh(uint8_t *             aFrame,
         LogMessage(kMessageReceive, *message, &aMacSource, kErrorNone);
 
         //manually log the exeact time (start counting milliseconds here)
-        const char* outputExperiment1 = "BRI: before";
-        otPlatLog(OT_LOG_LEVEL_CRIT, OT_LOG_REGION_API, outputExperiment1);
+        uint64_t startTime = otPlatTimeGet();
+        otLogCritApi("Message is under attack! Time before attack: %llu microseconds", startTime);
 
         //keeps the processor busy waiting, working but doing nothing
         for(int keepup = 0; keepup<10000000; keepup++) {
@@ -800,8 +800,11 @@ void MeshForwarder::HandleMesh(uint8_t *             aFrame,
             }
         }
 
-        const char* outputExperiment = "BRI: after";
-        otPlatLog(OT_LOG_LEVEL_CRIT, OT_LOG_REGION_API, outputExperiment);
+        uint64_t endTime = otPlatTimeGet();
+        otLogCritApi("Time after attack: %llu microseconds", endTime);
+
+        uint64_t delay = endTime - startTime;
+        otLogCritApi("Delay caused by attack: %llu microseconds", delay);
 
 
         //stop counting milliseconds here, calculate delay time
