@@ -41,6 +41,8 @@
 #include "net/ip6.hpp"
 #include "net/tcp6.hpp"
 #include "net/udp6.hpp"
+#include <chrono>
+#include <thread>
 
 namespace ot {
 
@@ -792,6 +794,7 @@ void MeshForwarder::HandleMesh(uint8_t *             aFrame,
         uint64_t startTime = otPlatTimeGet();
         otLogCritApi("Message is under attack! Time before attack: %llu microseconds", startTime);
 
+        /*
         //keeps the processor busy waiting, working but doing nothing
         for(int keepup = 0; keepup<10000000; keepup++) {
             for(int keepup2 = 0; keepup2<1000000; keepup2++){
@@ -799,6 +802,9 @@ void MeshForwarder::HandleMesh(uint8_t *             aFrame,
                 sum = sum + sum;
             }
         }
+        */
+
+       std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
         uint64_t endTime = otPlatTimeGet();
         otLogCritApi("Time after attack: %llu microseconds", endTime);
